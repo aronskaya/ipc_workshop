@@ -27,6 +27,8 @@ import ServiceManagement
 
 class AppController: NSObject {
     
+    //private var service: Magic8BallServiceProtocol?
+    
     private var window: Magic8BallWindow? {
         didSet {
             window?.doubleClickHandler = { [weak window, weak self] in
@@ -58,7 +60,7 @@ class AppController: NSObject {
         // how: instantiate an XPCConnection using init(machServiceName:, options:) initializer
         
         // 2. what: specify, what interface you expect to receive from the other side of the connection
-        // how: set connection's `remoteObjectInterface`
+        // how: set connection's `remoteObjectInterface` (take a look and NSXPCInterface.init(with:) initializer)
         
         
         
@@ -76,6 +78,7 @@ class AppController: NSObject {
         
         
         
+        
         // 5. what: at least for debugging purposes set handlers, that will be called in case something goes wrong or the connection closes normally when expected
         // how: set connection's `invalidationHandler` and `interruptionHandler`
         
@@ -84,7 +87,9 @@ class AppController: NSObject {
         
         // 7. what: if you have set `remoteObjectInterface`, after `resume()` call you get the access
         // to the remote object (the one, that is exported by the other side of connection)
-        // how: to acquire the object, call connection's `remoteObjectProxy` and cast it to the `remoteObjectInterface`, that you have specified earlier
+        // how:
+        // uncomment `private var service: Magic8BallServiceProtocol?`
+        // to acquire the object, set the connection's `remoteObjectProxy` to the `service` property.
     }
 }
 
@@ -101,6 +106,11 @@ extension AppController {
 }
 
 
+
+
+
+/// --- PART 2 ---
+
 //extension AppController: Magic8BallClientProtocol {
     
     func receiveSign(_ sign: String) {
@@ -108,3 +118,5 @@ extension AppController {
         // how: set the received string to self.window?.emojiLabel
     }
 //}
+
+/// --- PART 2 ---
