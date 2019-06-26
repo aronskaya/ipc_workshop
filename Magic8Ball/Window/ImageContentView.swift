@@ -32,6 +32,16 @@ final class ImageContentView: NSView {
     
     private var image: NSImage?
     
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        wantsLayer = true
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        super.init(coder: decoder)
+        wantsLayer = true
+    }
+    
     override var wantsUpdateLayer: Bool {
         return true
     }
